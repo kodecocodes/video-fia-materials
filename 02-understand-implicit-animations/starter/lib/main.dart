@@ -78,9 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: AnimatedContainer(
-          // Update Note:  As per the latest flutter linting(at the time of
-          // recording). It is suggested that to use const keyword with constant
-          // constructors to improve the app performance
+          // Update Note: Used const keyword with
+          // constant constructors as per [flutter lint rule](https://dart-lang.github.io/linter/lints/prefer_const_constructors.html)
           duration: const Duration(milliseconds: 1000),
           width: _size,
           height: _size,

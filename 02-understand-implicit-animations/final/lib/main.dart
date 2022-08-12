@@ -82,14 +82,12 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: AnimatedOpacity(
           opacity: _showBox ? 1.0 : 0.0,
-          // Update Note:  As per the latest flutter linting(at the time of
-            // updating). It is suggested that to use const keyword with
-            // constant constructors to improve the app performance
+          // Update Note: Used const keyword with
+          // constant constructors as per [flutter lint rule](https://dart-lang.github.io/linter/lints/prefer_const_constructors.html)
           duration:  const Duration(milliseconds: 1000),
           child: AnimatedContainer(
-            // Update Note:  As per the latest flutter linting(at the time of
-            // updating). It is suggested that to use const keyword with
-            // constant constructors to improve the app performance
+            // Update Note: Used const keyword with
+            // constant constructors as per [flutter lint rule](https://dart-lang.github.io/linter/lints/prefer_const_constructors.html)
             duration: const Duration(milliseconds: 1000),
             width: _showBox ? 200 : 100,
             height: _showBox ? 200 : 100,
