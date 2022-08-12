@@ -5,23 +5,27 @@ import '../models/meal.dart';
 class MealCard extends StatelessWidget {
   final Meal meal;
   final bool isMiniCard;
-  final double height;
+  final double? height;
 
-  const MealCard({Key key, this.meal, this.isMiniCard = false, this.height})
+  const MealCard(
+      {Key? key,
+      required this.meal,
+      this.isMiniCard = false,
+      this.height})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final TextTheme textTheme = theme.textTheme;
-    final ColorScheme colorScheme = theme.colorScheme;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
     return GestureDetector(
       onTap: () => Navigator.pushNamed(
         context,
-        "/meal",
+        '/meal',
         arguments: meal,
       ),
-      child: Container(
+      child: SizedBox(
         height: height ?? 180,
         child: Card(
           elevation: 3,
@@ -43,7 +47,7 @@ class MealCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -51,7 +55,7 @@ class MealCard extends StatelessWidget {
                     children: [
                       Text(
                         meal.name,
-                        style: textTheme.headline6.copyWith(
+                        style: textTheme.headline6?.copyWith(
                           color: colorScheme.onPrimary,
                         ),
                       ),
@@ -61,10 +65,10 @@ class MealCard extends StatelessWidget {
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                       Text(
-                        "\$${meal.price}",
-                        style: textTheme.bodyText1.copyWith(
+                        '\$${meal.price}',
+                        style: textTheme.bodyText1?.copyWith(
                           color: colorScheme.secondary,
                         ),
                       ),

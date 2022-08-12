@@ -3,26 +3,28 @@ import '../../models/meal.dart';
 import '../../widgets/meal_card.dart';
 
 class MealsSwitcher extends StatefulWidget {
+  const MealsSwitcher({Key? key}) : super(key: key);
+
   @override
-  _MealsSwitcherState createState() => _MealsSwitcherState();
+  State<MealsSwitcher> createState() => _MealsSwitcherState();
 }
 
 class _MealsSwitcherState extends State<MealsSwitcher> {
   int _currentSelection = 1;
-  double _selectorWidth = 30;
+  final double _selectorWidth = 30;
 
-  _selectItem(int id) {
+  void _selectItem(int id) {
     _currentSelection = id;
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final TextTheme textTheme = theme.textTheme;
-    final ColorScheme colorScheme = theme.colorScheme;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
     return Container(
-      margin: EdgeInsets.all(16),
+      margin: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -35,7 +37,7 @@ class _MealsSwitcherState extends State<MealsSwitcher> {
                   height: 4,
                   width: _selectorWidth,
                   decoration: ShapeDecoration(
-                    shape: StadiumBorder(),
+                    shape: const StadiumBorder(),
                     color: colorScheme.secondary,
                   ),
                 ),
@@ -49,36 +51,36 @@ class _MealsSwitcherState extends State<MealsSwitcher> {
                         _selectItem(1);
                       },
                       child: Text(
-                        "Top Meals",
-                        style: textTheme.headline6.copyWith(
+                        'Top Meals',
+                        style: textTheme.headline6?.copyWith(
                           color: _currentSelection == 1
                               ? colorScheme.secondary
                               : Colors.grey,
                         ),
                       ),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     InkWell(
                       onTap: () {
                         _selectItem(2);
                       },
                       child: Text(
-                        "Continental",
-                        style: textTheme.headline6.copyWith(
+                        'Continental',
+                        style: textTheme.headline6?.copyWith(
                           color: _currentSelection == 2
                               ? colorScheme.secondary
                               : Colors.grey,
                         ),
                       ),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     InkWell(
                       onTap: () {
                         _selectItem(3);
                       },
                       child: Text(
-                        "Your Favourite",
-                        style: textTheme.headline6.copyWith(
+                        'Your Favourite',
+                        style: textTheme.headline6?.copyWith(
                           color: _currentSelection == 3
                               ? colorScheme.secondary
                               : Colors.grey,
@@ -105,7 +107,7 @@ class _MealsSwitcherState extends State<MealsSwitcher> {
 class MealsList extends StatelessWidget {
   final List<Meal> meals;
 
-  const MealsList({Key key, this.meals}) : super(key: key);
+  const MealsList({Key? key, required this.meals}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -5,34 +5,34 @@ class Category {
   final IconData icon;
 
   Category({
-    this.name,
-    this.icon,
+    required this.name,
+    required this.icon,
   });
 }
 
 List<Category> categories = [
   Category(
-    name: "Pizza",
+    name: 'Pizza',
     icon: Icons.local_pizza,
   ),
   Category(
-    name: "Cake",
+    name: 'Cake',
     icon: Icons.cake,
   ),
   Category(
-    name: "Fish",
+    name: 'Fish',
     icon: Icons.set_meal,
   ),
   Category(
-    name: "Burger",
+    name: 'Burger',
     icon: Icons.fastfood,
   ),
   Category(
-    name: "Grills",
+    name: 'Grills',
     icon: Icons.local_fire_department,
   ),
   Category(
-    name: "Vegetarian",
+    name: 'Vegetarian',
     icon: Icons.eco,
   ),
 ];

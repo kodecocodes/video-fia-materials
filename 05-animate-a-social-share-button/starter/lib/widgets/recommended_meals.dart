@@ -4,11 +4,12 @@ import '../models/meal.dart';
 import 'meal_card.dart';
 
 class RecommendedMeals extends StatelessWidget {
+  const RecommendedMeals({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final TextTheme textTheme = theme.textTheme;
-    final ColorScheme colorScheme = theme.colorScheme;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
     return SizedBox(
       height: 150,
       child: Column(
@@ -17,11 +18,11 @@ class RecommendedMeals extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(left: 16),
             child: Text(
-              "Meals You Might Like",
+              'Meals You Might Like',
               style: textTheme.headline6,
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Expanded(
             child: ListView(
               scrollDirection: Axis.horizontal,

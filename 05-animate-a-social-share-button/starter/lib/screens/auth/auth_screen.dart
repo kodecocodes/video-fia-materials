@@ -4,19 +4,21 @@ import 'login_screen.dart';
 import 'signup_screen.dart';
 
 class AuthScreen extends StatefulWidget {
+  const AuthScreen({Key? key}) : super(key: key);
+
   @override
-  _AuthScreenState createState() => _AuthScreenState();
+  State<AuthScreen> createState() => _AuthScreenState();
 }
 
 class _AuthScreenState extends State<AuthScreen> {
   bool isLogin = true;
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sign In"),
+        title: const Text('Sign In'),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -26,7 +28,10 @@ class _AuthScreenState extends State<AuthScreen> {
               child: IntrinsicHeight(
                 child: Column(
                   children: [
-                    Expanded(child: isLogin ? LoginScreen() : SignupScreen()),
+                    Expanded(
+                        child: isLogin
+                            ? const LoginScreen()
+                            : const SignupScreen()),
                     Container(
                       height: 50,
                       margin: const EdgeInsets.only(bottom: 16),
@@ -41,7 +46,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                 textAlign: TextAlign.center,
                                 text: TextSpan(
                                   text: 'Don\'t have an account?',
-                                  style: TextStyle(color: Colors.black),
+                                  style: const TextStyle(color: Colors.black),
                                   children: <TextSpan>[
                                     TextSpan(
                                       text: ' Sign Up',
@@ -57,7 +62,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                 textAlign: TextAlign.center,
                                 text: TextSpan(
                                   text: 'Already have an account?',
-                                  style: TextStyle(color: Colors.black),
+                                  style: const TextStyle(color: Colors.black),
                                   children: <TextSpan>[
                                     TextSpan(
                                       text: ' Sign In',

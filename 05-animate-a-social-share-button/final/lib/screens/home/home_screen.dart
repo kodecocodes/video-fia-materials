@@ -5,6 +5,8 @@ import 'meals_switcher.dart';
 import 'offers_slider.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,18 +14,18 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
         title: Column(
           children: [
-            Text(
-              "RW-Eats",
+            const Text(
+              'RW-Eats',
               style: TextStyle(
                 fontWeight: FontWeight.w600,
               ),
             ),
             Text(
-              "Food Delivery",
+              'Food Delivery',
               style: Theme.of(context)
                   .textTheme
                   .subtitle2
-                  .copyWith(color: Colors.grey),
+                  ?.copyWith(color: Colors.grey),
             ),
           ],
         ),
@@ -37,9 +39,9 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {}),
         ],
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: ListView(
-        children: [
+        children: const [
           OffsersSlider(),
           CategoriesList(),
           MealsSwitcher(),
@@ -51,14 +53,13 @@ class HomeScreen extends StatelessWidget {
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final TextTheme textTheme = theme.textTheme;
-    final ColorScheme colorScheme = theme.colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -71,7 +72,7 @@ class AppDrawer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 16.0,
                         vertical: 64,
                       ),
@@ -83,14 +84,14 @@ class AppDrawer extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Divider(height: 1, thickness: 1),
-                    ListTile(
+                    const Divider(height: 1, thickness: 1),
+                    const ListTile(
                       leading: Icon(Icons.account_circle),
                       title: Text('Profile'),
                     ),
                     ListTile(
-                      leading: Icon(Icons.message),
-                      title: Text('Payment Methods'),
+                      leading: const Icon(Icons.message),
+                      title: const Text('Payment Methods'),
                       onTap: () {
                         Navigator.popAndPushNamed(
                           context,
@@ -98,10 +99,10 @@ class AppDrawer extends StatelessWidget {
                         );
                       },
                     ),
-                    Spacer(),
+                    const Spacer(),
                     ListTile(
-                      leading: Icon(Icons.logout),
-                      title: Text('Logout'),
+                      leading: const Icon(Icons.logout),
+                      title: const Text('Logout'),
                       onTap: () {
                         Navigator.popAndPushNamed(
                           context,
