@@ -1,3 +1,41 @@
+
+// Copyright (c) 2022 Razeware LLC
+
+// Permission is hereby granted, free of charge, to any person
+// obtaining a copy of this software and associated documentation
+// files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use,
+// copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom
+// the Software is furnished to do so, subject to the following
+// conditions:
+
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
+
+// Notwithstanding the foregoing, you may not use, copy, modify,
+// merge, publish, distribute, sublicense, create a derivative work,
+// and/or sell copies of the Software in any work that is designed,
+// intended, or marketed for pedagogical or instructional purposes
+// related to programming, coding, application development, or
+// information technology. Permission for such use, copying,
+// modification, merger, publication, distribution, sublicensing,
+// creation of derivative works, or sale is expressly withheld.
+
+// This project and source code may use libraries or frameworks
+// that are released under various Open-Source licenses. Use of
+// those libraries and frameworks are governed by their own
+// individual licenses.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+
 import 'package:flutter/material.dart';
 
 import '../models/meal.dart';
@@ -5,23 +43,27 @@ import '../models/meal.dart';
 class MealCard extends StatelessWidget {
   final Meal meal;
   final bool isMiniCard;
-  final double height;
+  final double? height;
 
-  const MealCard({Key key, this.meal, this.isMiniCard = false, this.height})
+  const MealCard(
+      {Key? key,
+      required this.meal,
+      this.isMiniCard = false,
+      this.height})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final TextTheme textTheme = theme.textTheme;
-    final ColorScheme colorScheme = theme.colorScheme;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
     return GestureDetector(
       onTap: () => Navigator.pushNamed(
         context,
-        "/meal",
+        '/meal',
         arguments: meal,
       ),
-      child: Container(
+      child: SizedBox(
         height: height ?? 180,
         child: Card(
           elevation: 3,
@@ -43,7 +85,7 @@ class MealCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -51,7 +93,7 @@ class MealCard extends StatelessWidget {
                     children: [
                       Text(
                         meal.name,
-                        style: textTheme.headline6.copyWith(
+                        style: textTheme.headline6?.copyWith(
                           color: colorScheme.onPrimary,
                         ),
                       ),
@@ -61,10 +103,10 @@ class MealCard extends StatelessWidget {
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                       Text(
-                        "\$${meal.price}",
-                        style: textTheme.bodyText1.copyWith(
+                        '\$${meal.price}',
+                        style: textTheme.bodyText1?.copyWith(
                           color: colorScheme.secondary,
                         ),
                       ),

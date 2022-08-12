@@ -1,3 +1,40 @@
+// Copyright (c) 2022 Razeware LLC
+
+// Permission is hereby granted, free of charge, to any person
+// obtaining a copy of this software and associated documentation
+// files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use,
+// copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom
+// the Software is furnished to do so, subject to the following
+// conditions:
+
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
+
+// Notwithstanding the foregoing, you may not use, copy, modify,
+// merge, publish, distribute, sublicense, create a derivative work,
+// and/or sell copies of the Software in any work that is designed,
+// intended, or marketed for pedagogical or instructional purposes
+// related to programming, coding, application development, or
+// information technology. Permission for such use, copying,
+// modification, merger, publication, distribution, sublicensing,
+// creation of derivative works, or sale is expressly withheld.
+
+// This project and source code may use libraries or frameworks
+// that are released under various Open-Source licenses. Use of
+// those libraries and frameworks are governed by their own
+// individual licenses.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+
 import 'package:flutter/material.dart';
 
 import '../../models/extra.dart';
@@ -8,14 +45,19 @@ import '../../widgets/share_button.dart';
 import 'extra_item.dart';
 
 class MealScreen extends StatefulWidget {
+  const MealScreen({Key? key}) : super(key: key);
+
   @override
-  _MealScreenState createState() => _MealScreenState();
+  State<MealScreen> createState() => _MealScreenState();
 }
 
 class _MealScreenState extends State<MealScreen> {
-  List<Extra> _selectedExtras = [];
+  // Update Note: Made the private field final as recommeded in the flutter
+  // lint rule, [prefer_final_fields](https://dart-lang.github.io/linter/lints/prefer_final_fields.html)
+  final List<Extra> _selectedExtras = [];
   bool _appBarFullyShown = false;
   bool get appBarFullyShown => _appBarFullyShown;
+  final Meal _defalutMeal = topMeals[0];
 
   bool _onNotificationHandler(ScrollNotification notification) {
     if (notification.depth == 0 && notification is ScrollUpdateNotification) {
@@ -32,27 +74,37 @@ class _MealScreenState extends State<MealScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final Meal meal = ModalRoute.of(context).settings.arguments;
-    final ThemeData theme = Theme.of(context);
-    final TextTheme textTheme = theme.textTheme;
-    final ColorScheme colorScheme = theme.colorScheme;
+    // Update Note: 1. Unless specified the type Meal dart consider it's return
+    // type as Object? which is a generic type. Here, we need to explicitly cast
+    // its type at the end. 
+    // 2. Also, it recommended in the flutter lint rule to
+    // avoid type ommitation for local variables.
+    // Ref: [omit_local_variable_types](https://dart-lang.github.io/linter/lints/omit_local_variable_types.html)
+    // 3. After flutter 2 released the null safety version. It
+    // is essential for developers to handle the nullable variables.
+    //For more info read article on [?? operator](https://dart.dev/codelabs/null-safety#exercise-null-coalescing-operators)
+    final meal =
+        ModalRoute.of(context)?.settings.arguments as Meal? ?? _defalutMeal;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         color: Colors.grey[100],
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Text(
-              "\$${meal.price}",
-              style: textTheme.headline4.copyWith(
+              '\$${meal.price}',
+              style: textTheme.headline4?.copyWith(
                 color: Colors.black,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: PrimaryButton(name: "Add to Cart", onTap: () {}),
+              child: PrimaryButton(name: 'Add to Cart', onTap: () {}),
             ),
           ],
         ),
@@ -69,7 +121,7 @@ class _MealScreenState extends State<MealScreen> {
                   Container(
                     margin: const EdgeInsets.only(left: 16),
                     child: Text(
-                      "Extras",
+                      'Extras',
                       style: textTheme.headline6,
                     ),
                   ),
@@ -88,7 +140,7 @@ class _MealScreenState extends State<MealScreen> {
                   Container(
                     margin: const EdgeInsets.all(16),
                     child: _selectedExtras.isEmpty
-                        ? Text("You haven't selected any Extras")
+                        ? const Text("You haven't selected any Extras")
                         : Wrap(
                             children: [
                               for (var i = 0; i < _selectedExtras.length; i++)
@@ -98,16 +150,17 @@ class _MealScreenState extends State<MealScreen> {
                                     label: Text(_selectedExtras[i].name),
                                     padding: const EdgeInsets.all(8),
                                     backgroundColor: colorScheme.secondary,
-                                    labelStyle: TextStyle(color: Colors.white),
+                                    labelStyle:
+                                        const TextStyle(color: Colors.white),
                                   ),
                                 )
                             ],
                           ),
                   ),
-                  ShareButton(),
-                  SizedBox(height: 32),
-                  RecommendedMeals(),
-                  SizedBox(height: 200),
+                  const ShareButton(),
+                  const SizedBox(height: 32),
+                  const RecommendedMeals(),
+                  const SizedBox(height: 200),
                 ],
               ),
             ),
@@ -120,9 +173,9 @@ class _MealScreenState extends State<MealScreen> {
 
 class MealDetailAppBar extends StatelessWidget {
   const MealDetailAppBar({
-    Key key,
-    @required this.appBarFullyShown,
-    @required this.meal,
+    Key? key,
+    required this.appBarFullyShown,
+    required this.meal,
   }) : super(key: key);
 
   final bool appBarFullyShown;
@@ -141,7 +194,7 @@ class MealDetailAppBar extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .headline6
-              .copyWith(color: Colors.white),
+              ?.copyWith(color: Colors.white),
         ),
         background: Stack(
           fit: StackFit.expand,
@@ -189,26 +242,26 @@ class MealDetailAppBar extends StatelessWidget {
 
 class MealInfo extends StatelessWidget {
   const MealInfo({
-    Key key,
-    @required this.meal,
+    Key? key,
+    required this.meal,
   }) : super(key: key);
 
   final Meal meal;
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final TextTheme textTheme = theme.textTheme;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
     return Container(
       margin: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Description",
+            'Description',
             style: textTheme.headline6,
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Text(
             meal.description,
             style: TextStyle(

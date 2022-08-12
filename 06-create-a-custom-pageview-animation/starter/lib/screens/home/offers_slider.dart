@@ -1,9 +1,48 @@
+// Copyright (c) 2022 Razeware LLC
+
+// Permission is hereby granted, free of charge, to any person
+// obtaining a copy of this software and associated documentation
+// files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use,
+// copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom
+// the Software is furnished to do so, subject to the following
+// conditions:
+
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
+
+// Notwithstanding the foregoing, you may not use, copy, modify,
+// merge, publish, distribute, sublicense, create a derivative work,
+// and/or sell copies of the Software in any work that is designed,
+// intended, or marketed for pedagogical or instructional purposes
+// related to programming, coding, application development, or
+// information technology. Permission for such use, copying,
+// modification, merger, publication, distribution, sublicensing,
+// creation of derivative works, or sale is expressly withheld.
+
+// This project and source code may use libraries or frameworks
+// that are released under various Open-Source licenses. Use of
+// those libraries and frameworks are governed by their own
+// individual licenses.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+
 import 'package:flutter/material.dart';
 import '../../models/offer.dart';
 
 class OffsersSlider extends StatefulWidget {
+  const OffsersSlider({Key? key}) : super(key: key);
+
   @override
-  _OffsersSliderState createState() => _OffsersSliderState();
+  State<OffsersSlider> createState() => _OffsersSliderState();
 }
 
 class _OffsersSliderState extends State<OffsersSlider> {
@@ -13,7 +52,7 @@ class _OffsersSliderState extends State<OffsersSlider> {
       children: [
         Container(
           height: 160,
-          margin: EdgeInsets.symmetric(vertical: 16),
+          margin: const EdgeInsets.symmetric(vertical: 16),
           child: PageView.builder(
             itemCount: offers.length,
             controller: PageController(viewportFraction: 0.7),
@@ -26,7 +65,8 @@ class _OffsersSliderState extends State<OffsersSlider> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            for (int i = 0; i < offers.length; i++) Indicator(isActive: false),
+            for (int i = 0; i < offers.length; i++)
+              const Indicator(isActive: false),
           ],
         ),
       ],
@@ -36,8 +76,8 @@ class _OffsersSliderState extends State<OffsersSlider> {
 
 class Item extends StatelessWidget {
   const Item({
-    Key key,
-    @required this.offer,
+    Key? key,
+    required this.offer,
   }) : super(key: key);
 
   final Offer offer;
@@ -55,12 +95,12 @@ class Item extends StatelessWidget {
         ),
       ),
       child: DefaultTextStyle(
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
         child: Stack(
           children: [
             Container(
               decoration: BoxDecoration(
-                color: Color.fromRGBO(0, 0, 0, 0.4),
+                color: const Color.fromRGBO(0, 0, 0, 0.4),
                 borderRadius: BorderRadius.circular(16),
               ),
             ),
@@ -71,19 +111,19 @@ class Item extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   // crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      "OFFER",
+                    const Text(
+                      'OFFER',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: 200,
                       child: Text(
                         offer.name.toUpperCase(),
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w600,
                         ),
@@ -106,14 +146,14 @@ class Item extends StatelessWidget {
 class Indicator extends StatelessWidget {
   final bool isActive;
 
-  const Indicator({Key key, this.isActive}) : super(key: key);
+  const Indicator({Key? key, required this.isActive}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 6,
       width: isActive ? 22 : 8,
-      margin: EdgeInsets.symmetric(horizontal: 4),
+      margin: const EdgeInsets.symmetric(horizontal: 4),
       decoration: BoxDecoration(
         color: isActive ? Theme.of(context).primaryColor : Colors.black26,
         borderRadius: BorderRadius.circular(32),
