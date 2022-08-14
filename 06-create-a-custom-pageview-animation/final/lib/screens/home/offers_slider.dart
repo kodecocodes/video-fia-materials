@@ -70,7 +70,7 @@ class _OffsersSliderState extends State<OffsersSlider> {
               // variable to follow good practise. For more info,
               // [no_leading_underscores_for_local_identifiers](https://dart-lang.github.io/linter/lints/no_leading_underscores_for_local_identifiers.html)
               final scale = _selectedIndex == index ? 1.0 : 0.8;
-              // Update Note: Explicitly mentioned the value type passed in the
+              // Update Note: Explicitly mentionedthe value type passed in the
               // builder parameter otherwise dart assumes the value variable as
               // generic datatype
               return TweenAnimationBuilder<double>(

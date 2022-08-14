@@ -74,7 +74,7 @@ class _MealScreenState extends State<MealScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Update Note: 1. Unless specified the type Meal dart consider it's return
+    // Update Note: 1. Unless specified the type Meal. Dart consider it's return
     // type as Object? which is a generic type. Here, we need to explicitly cast
     // its type at the end. 
     // 2. Also, it recommended in the flutter lint rule to
