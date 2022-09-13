@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,23 +15,22 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter: Implicit Animations'),
+      home: const MyHomePage(title: 'Flutter: Implicit Animations'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _showBox = false;
-  // double _bottomOffset = 500;
+  double _progress = 0.3;
 
   @override
   Widget build(BuildContext context) {
@@ -39,43 +39,27 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: AnimatedContainer(
-          duration: Duration(milliseconds: 1000),
-          curve: Curves.bounceOut,
-          width: _showBox ? 200 : 100,
-          height: _showBox ? 200 : 100,
-          color: _showBox ? Colors.orange : Colors.green,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircularProgressIndicator(
+              value: _progress,
+            ),
+            const SizedBox(height: 16),
+            Text("${(_progress * 100).round()}%"),
+          ],
         ),
       ),
-      // body: Stack(
-      //   alignment: Alignment.bottomCenter,
-      //   children: [
-      //     AnimatedPositioned(
-      //       bottom: _bottomOffset,
-      //       duration: Duration(milliseconds: 2000),
-      //       // curve: Curves.bounceOut,
-      //       // curve: Curves.easeIn,
-      //       curve: Curves.easeInOutQuint,
-      //       child: Container(
-      //         width: 100,
-      //         height: 100,
-      //         decoration: BoxDecoration(
-      //           color: Colors.green,
-      //           shape: BoxShape.circle,
-      //         ),
-      //       ),
-      //     )
-      //   ],
-      // ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _showBox = !_showBox;
-            // _bottomOffset = 0;
-          });
-        },
+        onPressed: _progress > 0.9
+            ? null
+            : () {
+                setState(() {
+                  _progress += 0.1;
+                });
+              },
         tooltip: 'Animate',
-        child: Icon(Icons.play_arrow),
+        child: const Icon(Icons.play_arrow),
       ),
     );
   }

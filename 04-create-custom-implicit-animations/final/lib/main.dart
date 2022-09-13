@@ -15,18 +15,18 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter: Implicit Animations'),
+      home: const MyHomePage(title: 'Flutter: Implicit Animations'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: TweenAnimationBuilder(
-          duration: Duration(milliseconds: 1000),
+          duration: const Duration(milliseconds: 1000),
           tween: Tween<double>(begin: 0.0, end: _progress),
           builder: (_, double value, __) {
             return Column(
@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 CircularProgressIndicator(
                   value: value,
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Text("${(value * 100).round()}%"),
               ],
             );
@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: TweenAnimationBuilder(
-        duration: Duration(milliseconds: 1000),
+        duration: const Duration(milliseconds: 1000),
         curve: Curves.bounceOut,
         tween: _fabTween,
         child: FloatingActionButton(
@@ -70,13 +70,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   });
                 },
           tooltip: 'Animate',
-          child: Icon(Icons.play_arrow),
+          child: const Icon(Icons.play_arrow),
         ),
         builder: (_, value, child) {
           // return Transform.rotate(
           // angle: (math.pi * 2) * value,
           return Transform.scale(
-            scale: value,
+            scale: value as double,
             child: child,
           );
         },
