@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -14,18 +15,18 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter: Implicit Animations'),
+      home: const MyHomePage(title: 'Flutter: Implicit Animations'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -43,13 +44,12 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: AnimatedOpacity(
           opacity: _showBox ? 1.0 : 0.0,
-          duration: Duration(milliseconds: 1000),
+          duration: const Duration(milliseconds: 1000),
           child: AnimatedContainer(
-            duration: Duration(milliseconds: 1000),
-            width: _showBox ? 200 : 100,
-            height: _showBox ? 200 : 100,
-            color: _showBox ? Colors.orange : Colors.green,
-          ),
+              duration: const Duration(milliseconds: 1000),
+              width: _showBox ? 200 : 100,
+              height: _showBox ? 200 : 100,
+              color: _showBox ? Colors.orange : Colors.green),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -58,12 +58,11 @@ class _MyHomePageState extends State<MyHomePage> {
             // _size = _size == 100 ? 200 : 100;
             // _boxColor =
             //     _boxColor == Colors.green ? Colors.orange : Colors.green;
-            // _boxOpacity = _boxOpacity == 1.0 ? 0.0 : 1.0;
             _showBox = !_showBox;
           });
         },
         tooltip: 'Increment',
-        child: Icon(Icons.play_arrow),
+        child: const Icon(Icons.play_arrow),
       ),
     );
   }
