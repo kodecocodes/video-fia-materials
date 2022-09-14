@@ -5,8 +5,8 @@ class Category {
   final IconData icon;
 
   Category({
-    this.name,
-    this.icon,
+    required this.name,
+    required this.icon,
   });
 }
 

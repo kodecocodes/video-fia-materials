@@ -4,7 +4,7 @@ class HeaderText extends StatelessWidget {
   final String headerText;
   final String subtitleText;
 
-  const HeaderText({Key key, @required this.headerText, this.subtitleText = ""})
+  const HeaderText({Key? key, required this.headerText, this.subtitleText = ""})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -13,12 +13,12 @@ class HeaderText extends StatelessWidget {
       children: [
         Text(
           headerText,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.w900,
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         subtitleText != ""
             ? Text(
                 subtitleText,

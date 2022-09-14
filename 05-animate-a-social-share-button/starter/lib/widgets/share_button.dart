@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ShareButton extends StatefulWidget {
+  const ShareButton({super.key});
+
   @override
-  _ShareButtonState createState() => _ShareButtonState();
+  State<ShareButton> createState() => _ShareButtonState();
 }
 
 class _ShareButtonState extends State<ShareButton> {
@@ -18,18 +20,18 @@ class _ShareButtonState extends State<ShareButton> {
             height: 48,
             decoration: ShapeDecoration(
               color: Colors.grey[400],
-              shape: StadiumBorder(),
+              shape: const StadiumBorder(),
             ),
           ),
           Container(
             width: 40,
             margin: const EdgeInsets.only(left: 4),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,
             ),
             child: IconButton(
-              icon: Icon(Icons.share),
+              icon: const Icon(Icons.share),
               onPressed: () {},
             ),
           ),
@@ -42,19 +44,19 @@ class _ShareButtonState extends State<ShareButton> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   IconButton(
-                    icon: ImageIcon(
+                    icon: const ImageIcon(
                       AssetImage("assets/images/icon-facebook.png"),
                     ),
                     onPressed: () {},
                   ),
                   IconButton(
-                    icon: ImageIcon(
+                    icon: const ImageIcon(
                       AssetImage("assets/images/icon-twitter.png"),
                     ),
                     onPressed: () {},
                   ),
                   IconButton(
-                    icon: ImageIcon(
+                    icon: const ImageIcon(
                       AssetImage("assets/images/icon-instagram.png"),
                     ),
                     onPressed: () {},

@@ -6,7 +6,7 @@ import 'input_field.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -16,7 +16,7 @@ class LoginScreen extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+        children: const <Widget>[
           HeaderText(
             headerText: "Login",
             subtitleText: "Please sign in to continue.",

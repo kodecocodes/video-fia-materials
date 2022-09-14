@@ -5,10 +5,10 @@ class Meal {
   final String imgUrl;
 
   Meal({
-    this.name,
-    this.description,
-    this.price,
-    this.imgUrl,
+    required this.name,
+    required this.description,
+    required this.price,
+    required this.imgUrl,
   });
 }
 

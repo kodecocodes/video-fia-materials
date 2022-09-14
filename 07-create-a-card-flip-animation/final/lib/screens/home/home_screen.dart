@@ -5,6 +5,8 @@ import 'meals_switcher.dart';
 import 'offers_slider.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +14,7 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
         title: Column(
           children: [
-            Text(
+            const Text(
               "RW-Eats",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
@@ -23,7 +25,7 @@ class HomeScreen extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .subtitle2
-                  .copyWith(color: Colors.grey),
+                  ?.copyWith(color: Colors.grey),
             ),
           ],
         ),
@@ -37,11 +39,11 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {}),
         ],
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body: ListView(
         children: [
           OffsersSlider(),
-          CategoriesList(),
+          const CategoriesList(),
           MealsSwitcher(),
         ],
       ),
@@ -51,7 +53,7 @@ class HomeScreen extends StatelessWidget {
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -71,7 +73,7 @@ class AppDrawer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 16.0,
                         vertical: 64,
                       ),
@@ -83,14 +85,14 @@ class AppDrawer extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Divider(height: 1, thickness: 1),
-                    ListTile(
+                    const Divider(height: 1, thickness: 1),
+                    const ListTile(
                       leading: Icon(Icons.account_circle),
                       title: Text('Profile'),
                     ),
                     ListTile(
-                      leading: Icon(Icons.message),
-                      title: Text('Payment Methods'),
+                      leading: const Icon(Icons.message),
+                      title: const Text('Payment Methods'),
                       onTap: () {
                         Navigator.popAndPushNamed(
                           context,
@@ -98,10 +100,10 @@ class AppDrawer extends StatelessWidget {
                         );
                       },
                     ),
-                    Spacer(),
+                    const Spacer(),
                     ListTile(
-                      leading: Icon(Icons.logout),
-                      title: Text('Logout'),
+                      leading: const Icon(Icons.logout),
+                      title: const Text('Logout'),
                       onTap: () {
                         Navigator.popAndPushNamed(
                           context,

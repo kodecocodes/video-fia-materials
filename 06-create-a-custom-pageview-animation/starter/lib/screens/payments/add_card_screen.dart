@@ -5,18 +5,18 @@ import '../../widgets/primary_button.dart';
 
 class AddCardScreen extends StatefulWidget {
   @override
-  _AddCardScreenState createState() => _AddCardScreenState();
+  State<AddCardScreen> createState() => _AddCardScreenState();
 }
 
 class _AddCardScreenState extends State<AddCardScreen> {
   final _formKey = GlobalKey<FormState>();
-  FocusNode _cvvFocusNode;
+  FocusNode? _cvvFocusNode;
   bool _isCvvFocused = false;
 
   final Map<String, dynamic> formData = {
     'card_number': "",
     'card_name': "",
-    'expiry_date': DateTime.now().add(Duration(days: 30)),
+    'expiry_date': DateTime.now().add(const Duration(days: 30)),
     'cvv': "",
   };
 
@@ -24,33 +24,35 @@ class _AddCardScreenState extends State<AddCardScreen> {
   void initState() {
     super.initState();
     _cvvFocusNode = FocusNode();
-    _cvvFocusNode.addListener(_handleFocusChange);
+    _cvvFocusNode?.addListener(_handleFocusChange);
   }
 
   @override
   void dispose() {
-    _cvvFocusNode.removeListener(_handleFocusChange);
-    _cvvFocusNode.dispose();
+    _cvvFocusNode?.removeListener(_handleFocusChange);
+    _cvvFocusNode?.dispose();
     super.dispose();
   }
 
   void _handleFocusChange() {
-    if (_cvvFocusNode.hasFocus) {
-      _isCvvFocused = true;
-    } else {
-      _isCvvFocused = false;
+    if (_cvvFocusNode != null) {
+      if (_cvvFocusNode?.hasFocus ?? false) {
+        _isCvvFocused = true;
+      } else {
+        _isCvvFocused = false;
+      }
+      setState(() {});
     }
-    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Card'),
+        title: const Text('Add Card'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -72,13 +74,13 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         InputFieldWrapper(
                           child: TextFormField(
                             keyboardType: TextInputType.number,
                             maxLength: 16,
                             decoration:
-                                InputDecoration(hintText: 'Card Number'),
+                                const InputDecoration(hintText: 'Card Number'),
                             onChanged: (value) {
                               setState(() {
                                 formData['card_number'] = value;
@@ -89,7 +91,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                         InputFieldWrapper(
                           child: TextFormField(
                             decoration:
-                                InputDecoration(hintText: 'Name on Card'),
+                                const InputDecoration(hintText: 'Name on Card'),
                             onChanged: (value) {
                               setState(() {
                                 formData['card_name'] = value;
@@ -100,12 +102,11 @@ class _AddCardScreenState extends State<AddCardScreen> {
                         InputFieldWrapper(
                           child: TextFormField(
                             decoration:
-                                InputDecoration(hintText: "Expiry Date"),
+                                const InputDecoration(hintText: "Expiry Date"),
                             onTap: () async {
-                              DateTime date = DateTime(1900);
+                              DateTime? date = DateTime(1900);
                               // Below line stops keyboard from appearing
-                              FocusScope.of(context)
-                                  .requestFocus(new FocusNode());
+                              FocusScope.of(context).requestFocus(FocusNode());
 
                               date = await showDatePicker(
                                 context: context,
@@ -118,11 +119,11 @@ class _AddCardScreenState extends State<AddCardScreen> {
                                 builder: (context, child) {
                                   return Theme(
                                     data: ThemeData.light().copyWith(
-                                      colorScheme: ColorScheme.light(
+                                      colorScheme: const ColorScheme.light(
                                         primary: Color(0xFF158443),
                                       ),
                                     ),
-                                    child: child,
+                                    child: child!,
                                   );
                                 },
                               );
@@ -138,7 +139,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                             focusNode: _cvvFocusNode,
                             keyboardType: TextInputType.number,
                             maxLength: 3,
-                            decoration: InputDecoration(hintText: 'CVV'),
+                            decoration: const InputDecoration(hintText: 'CVV'),
                             onChanged: (value) {
                               setState(() {
                                 formData['cvv'] = value;
@@ -146,15 +147,15 @@ class _AddCardScreenState extends State<AddCardScreen> {
                             },
                           ),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         PrimaryButton(
                           name: "Add Card",
                           onTap: () {
                             final form = _formKey.currentState;
                             FocusScope.of(context).unfocus();
-                            if (form.validate()) {
-                              form.save();
-                              form.reset();
+                            if (form?.validate() ?? false) {
+                              form?.save();
+                              form?.reset();
                             }
                           },
                         )
@@ -177,20 +178,20 @@ class FrontCard extends StatelessWidget {
   final String cardName;
   final DateTime expiryDate;
 
-  String _formattedCardNumber;
-  String _formattedExpiryDate;
+  late String _formattedCardNumber;
+  late String _formattedExpiryDate;
 
   FrontCard({
-    Key key,
-    this.cardNumber,
-    this.cardName,
-    this.expiryDate,
+    Key? key,
+    required this.cardNumber,
+    required this.cardName,
+    required this.expiryDate,
   }) : super(key: key) {
-    _formattedCardNumber = this.cardNumber.padRight(16, '*');
+    _formattedCardNumber = cardNumber.padRight(16, '*');
     _formattedCardNumber = _formattedCardNumber.replaceAllMapped(
         RegExp(r".{4}"), (match) => "${match.group(0)} ");
     _formattedExpiryDate =
-        "${expiryDate?.month}/" + "${expiryDate?.year}".substring(2);
+        "${expiryDate.month}/${"${expiryDate.year}".substring(2)}";
   }
 
   @override
@@ -205,13 +206,13 @@ class FrontCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Mastercard"),
-          Spacer(),
+          const Text("Mastercard"),
+          const Spacer(),
           Center(
             child: Text(
               _formattedCardNumber,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline4.copyWith(
+              style: Theme.of(context).textTheme.headline4?.copyWith(
                     fontSize: 24,
                     color: Colors.black,
                   ),
@@ -220,7 +221,7 @@ class FrontCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 "VALID\nTHRU",
                 style: TextStyle(
                   fontSize: 8,
@@ -228,7 +229,7 @@ class FrontCard extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Text(_formattedExpiryDate),
             ],
           ),
@@ -248,8 +249,8 @@ class FrontCard extends StatelessWidget {
 class BackCard extends StatelessWidget {
   final String cvv;
   const BackCard({
-    Key key,
-    this.cvv,
+    Key? key,
+    required this.cvv,
   }) : super(key: key);
 
   @override
@@ -263,8 +264,8 @@ class BackCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
             child: Text("ELECTRONIC USE ONLY"),
           ),
           Container(
@@ -281,7 +282,7 @@ class BackCard extends StatelessWidget {
               height: 50,
               child: Text(
                 cvv,
-                style: Theme.of(context).textTheme.headline5.copyWith(
+                style: Theme.of(context).textTheme.headline5?.copyWith(
                       color: Colors.black,
                       fontStyle: FontStyle.italic,
                     ),

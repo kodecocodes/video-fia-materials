@@ -11,7 +11,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-    runApp(new MyApp());
+    runApp(MyApp());
   });
 }
 
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: Colors.white,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        colorScheme: ColorScheme.light(
+        colorScheme: const ColorScheme.light(
           primary: _lightPrimaryColor,
           secondary: _lightSecondaryColor,
           onPrimary: _lightOnPrimaryColor,
@@ -40,34 +40,34 @@ class MyApp extends StatelessWidget {
           color: Colors.white,
           elevation: 0,
           brightness: Brightness.light,
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.black),
           textTheme: TextTheme(
             headline6: TextStyle(color: Colors.grey[700], fontSize: 18),
           ),
         ),
-        inputDecorationTheme: InputDecorationTheme(
+        inputDecorationTheme: const InputDecorationTheme(
           contentPadding: EdgeInsets.all(20),
           border: InputBorder.none,
         ),
         textTheme: base.textTheme.copyWith(
-          headline5: base.textTheme.headline5.copyWith(
+          headline5: base.textTheme.headline5?.copyWith(
             fontWeight: FontWeight.w600,
             fontSize: 20,
             color: _lightSecondaryColor,
           ),
-          headline6: base.textTheme.headline5.copyWith(
+          headline6: base.textTheme.headline5?.copyWith(
             fontWeight: FontWeight.w600,
             fontSize: 18,
             color: _lightSecondaryColor,
           ),
-          subtitle1: base.textTheme.subtitle1.copyWith(
+          subtitle1: base.textTheme.subtitle1?.copyWith(
             fontWeight: FontWeight.w600,
             color: _lightSecondaryColor,
           ),
         ),
       ),
       routes: {
-        '/': (context) => HomeScreen(),
+        '/': (context) => const HomeScreen(),
         '/auth': (context) => AuthScreen(),
         '/payment_methods': (context) => PaymentMethodsScreen(),
         '/add_card': (context) => AddCardScreen(),

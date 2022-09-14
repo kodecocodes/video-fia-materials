@@ -4,12 +4,12 @@ import '../../models/extra.dart';
 class ExtraItem extends StatefulWidget {
   final Extra extra;
   final ValueChanged<bool> onSelected;
-  // final Function(bool) onSelected;
 
-  const ExtraItem({Key key, this.extra, this.onSelected}) : super(key: key);
+  const ExtraItem({Key? key, required this.extra, required this.onSelected})
+      : super(key: key);
 
   @override
-  _ExtraItemState createState() => _ExtraItemState();
+  State<ExtraItem> createState() => _ExtraItemState();
 }
 
 class _ExtraItemState extends State<ExtraItem> {
@@ -31,15 +31,12 @@ class _ExtraItemState extends State<ExtraItem> {
         child: Column(
           children: [
             AnimatedContainer(
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: _isSelected
-                    ? Border.all(
-                        color: colorScheme.secondary,
-                        width: 2,
-                      )
+                    ? Border.all(color: colorScheme.secondary, width: 2)
                     : null,
               ),
               child: Image.asset(
@@ -49,7 +46,7 @@ class _ExtraItemState extends State<ExtraItem> {
               ),
             ),
             AnimatedDefaultTextStyle(
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: _isSelected ? FontWeight.w600 : FontWeight.normal,

@@ -3,7 +3,7 @@ import '../../models/category.dart';
 
 class CategoriesList extends StatelessWidget {
   const CategoriesList({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -13,7 +13,7 @@ class CategoriesList extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     return Container(
       height: 140,
-      margin: EdgeInsets.symmetric(vertical: 16),
+      margin: const EdgeInsets.symmetric(vertical: 16),
       // color: Colors.grey[200],
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,8 +26,8 @@ class CategoriesList extends StatelessWidget {
                   "Categories",
                   style: textTheme.headline6,
                 ),
-                Spacer(),
-                Text("See More"),
+                const Spacer(),
+                const Text("See More"),
               ],
             ),
           ),
@@ -39,7 +39,7 @@ class CategoriesList extends StatelessWidget {
                 for (int i = 0; i < categories.length; i++)
                   Container(
                     width: 50,
-                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       children: [
                         Container(
@@ -55,7 +55,7 @@ class CategoriesList extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Text(
                           categories[i].name,
                           overflow: TextOverflow.ellipsis,

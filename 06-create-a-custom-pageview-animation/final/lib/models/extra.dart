@@ -2,7 +2,7 @@ class Extra {
   final int id;
   final String imgUrl;
   final String name;
-  Extra({this.name, this.imgUrl, this.id});
+  Extra({required this.name, required this.imgUrl, required this.id});
 }
 
 List<Extra> extras = [

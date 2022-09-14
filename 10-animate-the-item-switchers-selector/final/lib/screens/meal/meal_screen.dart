@@ -9,11 +9,11 @@ import 'extra_item.dart';
 
 class MealScreen extends StatefulWidget {
   @override
-  _MealScreenState createState() => _MealScreenState();
+  State<MealScreen> createState() => _MealScreenState();
 }
 
 class _MealScreenState extends State<MealScreen> {
-  List<Extra> _selectedExtras = [];
+  final List<Extra> _selectedExtras = [];
   bool _appBarFullyShown = false;
   bool get appBarFullyShown => _appBarFullyShown;
 
@@ -32,7 +32,7 @@ class _MealScreenState extends State<MealScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final Meal meal = ModalRoute.of(context).settings.arguments;
+    final Meal meal = ModalRoute.of(context)!.settings.arguments as Meal;
     final ThemeData theme = Theme.of(context);
     final TextTheme textTheme = theme.textTheme;
     final ColorScheme colorScheme = theme.colorScheme;
@@ -42,14 +42,14 @@ class _MealScreenState extends State<MealScreen> {
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Text(
               "\$${meal.price}",
-              style: textTheme.headline4.copyWith(
+              style: textTheme.headline4?.copyWith(
                 color: Colors.black,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: PrimaryButton(name: "Add to Cart", onTap: () {}),
@@ -96,7 +96,7 @@ class _MealScreenState extends State<MealScreen> {
                   Container(
                     margin: const EdgeInsets.all(16),
                     child: _selectedExtras.isEmpty
-                        ? Text("You haven't selected any Extras")
+                        ? const Text("You haven't selected any Extras")
                         : Wrap(
                             children: [
                               for (var i = 0; i < _selectedExtras.length; i++)
@@ -106,16 +106,17 @@ class _MealScreenState extends State<MealScreen> {
                                     label: Text(_selectedExtras[i].name),
                                     padding: const EdgeInsets.all(8),
                                     backgroundColor: colorScheme.secondary,
-                                    labelStyle: TextStyle(color: Colors.white),
+                                    labelStyle:
+                                        const TextStyle(color: Colors.white),
                                   ),
                                 )
                             ],
                           ),
                   ),
                   ShareButton(),
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
                   RecommendedMeals(),
-                  SizedBox(height: 200),
+                  const SizedBox(height: 200),
                 ],
               ),
             ),
@@ -128,9 +129,9 @@ class _MealScreenState extends State<MealScreen> {
 
 class MealDetailAppBar extends StatelessWidget {
   const MealDetailAppBar({
-    Key key,
-    @required this.appBarFullyShown,
-    @required this.meal,
+    Key? key,
+    required this.appBarFullyShown,
+    required this.meal,
   }) : super(key: key);
 
   final bool appBarFullyShown;
@@ -149,7 +150,7 @@ class MealDetailAppBar extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .headline6
-              .copyWith(color: Colors.white),
+              ?.copyWith(color: Colors.white),
         ),
         background: Stack(
           fit: StackFit.expand,
@@ -197,8 +198,8 @@ class MealDetailAppBar extends StatelessWidget {
 
 class MealInfo extends StatelessWidget {
   const MealInfo({
-    Key key,
-    @required this.meal,
+    Key? key,
+    required this.meal,
   }) : super(key: key);
 
   final Meal meal;
@@ -216,7 +217,7 @@ class MealInfo extends StatelessWidget {
             "Description",
             style: textTheme.headline6,
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Text(
             meal.description,
             style: TextStyle(

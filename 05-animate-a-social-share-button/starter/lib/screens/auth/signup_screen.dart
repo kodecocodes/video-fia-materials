@@ -6,18 +6,18 @@ import 'input_field.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(32),
-      constraints: BoxConstraints(minHeight: 300),
+      constraints: const BoxConstraints(minHeight: 300),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+        children: const [
           HeaderText(headerText: "Create Account"),
           SizedBox(height: 64),
           InputField("Full Name"),

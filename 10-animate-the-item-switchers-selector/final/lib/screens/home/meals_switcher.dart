@@ -4,7 +4,7 @@ import '../../widgets/meal_card.dart';
 
 class MealsSwitcher extends StatefulWidget {
   @override
-  _MealsSwitcherState createState() => _MealsSwitcherState();
+  State<MealsSwitcher> createState() => _MealsSwitcherState();
 }
 
 class _MealsSwitcherState extends State<MealsSwitcher> {
@@ -13,9 +13,9 @@ class _MealsSwitcherState extends State<MealsSwitcher> {
   double _selectorPositionX = 24;
   final double _selectorWidth = 30;
 
-  GlobalKey _itemKey1 = GlobalKey();
-  GlobalKey _itemKey2 = GlobalKey();
-  GlobalKey _itemKey3 = GlobalKey();
+  final _itemKey1 = GlobalKey();
+  final _itemKey2 = GlobalKey();
+  final _itemKey3 = GlobalKey();
 
   @override
   void initState() {
@@ -40,27 +40,29 @@ class _MealsSwitcherState extends State<MealsSwitcher> {
         selectedGlobalKey = _itemKey3;
         break;
       default:
+        return;
     }
     _setWidgetPositionX(selectedGlobalKey);
   }
 
   _setWidgetPositionX(GlobalKey key) {
-    final RenderBox widgetRenderBox = key.currentContext.findRenderObject();
-
+    final RenderBox widgetRenderBox =
+        key.currentContext!.findRenderObject() as RenderBox;
     final widgetPosition = widgetRenderBox.localToGlobal(Offset.zero);
     final widgetSize = widgetRenderBox.size;
-
     _selectorPositionX =
         widgetPosition.dx - ((_selectorWidth - widgetSize.width) / 2);
     setState(() {});
   }
 
   _setMeals() {
-    if (_currentSelection == 1)
+    if (_currentSelection == 1) {
       _meals = topMeals;
-    else if (_currentSelection == 2)
+    } else if (_currentSelection == 2) {
       _meals = continentalMeals;
-    else if (_currentSelection == 3) _meals = favouriteMeals;
+    } else if (_currentSelection == 3) {
+      _meals = favouriteMeals;
+    }
   }
 
   @override
@@ -69,8 +71,9 @@ class _MealsSwitcherState extends State<MealsSwitcher> {
     final TextTheme textTheme = theme.textTheme;
     final ColorScheme colorScheme = theme.colorScheme;
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 16),
+      margin: const EdgeInsets.all(16),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: [
@@ -83,13 +86,13 @@ class _MealsSwitcherState extends State<MealsSwitcher> {
                   height: 4,
                   width: _selectorWidth,
                   decoration: ShapeDecoration(
-                    shape: StadiumBorder(),
+                    shape: const StadiumBorder(),
                     color: colorScheme.secondary,
                   ),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(left: 16, bottom: 12.0),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
                 child: Row(
                   children: [
                     InkWell(
@@ -99,14 +102,14 @@ class _MealsSwitcherState extends State<MealsSwitcher> {
                       },
                       child: Text(
                         "Top Meals",
-                        style: textTheme.headline6.copyWith(
+                        style: textTheme.headline6?.copyWith(
                           color: _currentSelection == 1
                               ? colorScheme.secondary
                               : Colors.grey,
                         ),
                       ),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     InkWell(
                       key: _itemKey2,
                       onTap: () {
@@ -114,14 +117,14 @@ class _MealsSwitcherState extends State<MealsSwitcher> {
                       },
                       child: Text(
                         "Continental",
-                        style: textTheme.headline6.copyWith(
+                        style: textTheme.headline6?.copyWith(
                           color: _currentSelection == 2
                               ? colorScheme.secondary
                               : Colors.grey,
                         ),
                       ),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     InkWell(
                       key: _itemKey3,
                       onTap: () {
@@ -129,7 +132,7 @@ class _MealsSwitcherState extends State<MealsSwitcher> {
                       },
                       child: Text(
                         "Your Favourite",
-                        style: textTheme.headline6.copyWith(
+                        style: textTheme.headline6?.copyWith(
                           color: _currentSelection == 3
                               ? colorScheme.secondary
                               : Colors.grey,
@@ -143,10 +146,10 @@ class _MealsSwitcherState extends State<MealsSwitcher> {
           ),
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 450),
-            // transitionBuilder: (Widget child, Animation<double> animation) {
-            //   // return ScaleTransition(child: child, scale: animation);
-            //   return RotationTransition(child: child, turns: animation);
-            // },
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              //return ScaleTransition(scale: animation, child: child);
+              return RotationTransition(turns: animation, child: child);
+            },
             child: MealsList(
               key: ValueKey(_currentSelection),
               meals: _meals,
@@ -161,17 +164,14 @@ class _MealsSwitcherState extends State<MealsSwitcher> {
 class MealsList extends StatelessWidget {
   final List<Meal> meals;
 
-  const MealsList({Key key, this.meals}) : super(key: key);
+  const MealsList({Key? key, required this.meals}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        children: [
-          for (var i = 0; i < meals.length; i++) MealCard(meal: meals[i])
-        ],
-      ),
+    return Column(
+      children: [
+        for (var i = 0; i < meals.length; i++) MealCard(meal: meals[i])
+      ],
     );
   }
 }

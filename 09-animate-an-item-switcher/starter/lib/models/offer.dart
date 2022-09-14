@@ -4,9 +4,9 @@ class Offer {
   final String imgUrl;
 
   Offer({
-    this.name,
-    this.restaurantName,
-    this.imgUrl,
+    required this.name,
+    required this.restaurantName,
+    required this.imgUrl,
   });
 }
 

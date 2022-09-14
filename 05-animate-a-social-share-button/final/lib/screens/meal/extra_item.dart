@@ -4,10 +4,10 @@ import '../../models/extra.dart';
 class ExtraItem extends StatefulWidget {
   final Extra extra;
 
-  const ExtraItem({Key key, this.extra}) : super(key: key);
+  const ExtraItem({Key? key, required this.extra}) : super(key: key);
 
   @override
-  _ExtraItemState createState() => _ExtraItemState();
+  State<ExtraItem> createState() => _ExtraItemState();
 }
 
 class _ExtraItemState extends State<ExtraItem> {
